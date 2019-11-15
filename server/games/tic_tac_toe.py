@@ -18,22 +18,31 @@ class Game:
     def is_space_free(self, move):
         return self.board[move] == ' '
 
-    def computer_move(self, boardState):
-        pass
+    def computer_move(self):
+        possible_moves = []
+        for i in range(0, len(self.board)):
+            if self.is_space_free(i):
+                possible_moves.append(i)
+        if len(possible_moves) != 0:
+            return self.make_move(random.choice(possible_moves), 'O')
+        else:
+            return None
+        
 
-    def is_winner(self, board, letter):
-    # Given a board and a player's letter, this function returns True if that player has won.
-    # We use board instead of board and letter instead of letter so we don't have to type as much.
+    def check_winner(self, letter):
+        # Given a board and a player's letter, this function returns True if that player has won.
+        # We use board instead of board and letter instead of letter so we don't have to type as much.
+        board = self.board
         return (
-            (board[7] == letter and board[8] == letter and board[9] == letter) or # across the top
-            (board[4] == letter and board[5] == letter and board[6] == letter) or # across the middle
-            (board[1] == letter and board[2] == letter and board[3] == letter) or # across the bottom
-            (board[7] == letter and board[4] == letter and board[1] == letter) or # down the left side
-            (board[8] == letter and board[5] == letter and board[2] == letter) or # down the middle
-            (board[9] == letter and board[6] == letter and board[3] == letter) or # down the right side
-            (board[7] == letter and board[5] == letter and board[3] == letter) or # diagonal
-            (board[9] == letter and board[5] == letter and board[1] == letter)
-        ) # diagonal
+            (board[6] == letter and board[7] == letter and board[8] == letter) or 
+            (board[3] == letter and board[4] == letter and board[5] == letter) or 
+            (board[0] == letter and board[1] == letter and board[2] == letter) or 
+            (board[6] == letter and board[3] == letter and board[0] == letter) or 
+            (board[7] == letter and board[4] == letter and board[1] == letter) or 
+            (board[8] == letter and board[5] == letter and board[2] == letter) or 
+            (board[6] == letter and board[4] == letter and board[2] == letter) or 
+            (board[8] == letter and board[4] == letter and board[0] == letter)
+        )
 
     @classmethod
     def generate_room_id(cls):

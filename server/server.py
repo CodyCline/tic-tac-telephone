@@ -46,14 +46,21 @@ def make_move(data):
     game = game_lobbies[room]
     if room in game_lobbies: #If game exists
         player_move = int(data['player_move'])-1
-        #Make player move, computer follows, then send copy of updated board to front-end
+        #Make player move, computer follows, check for winner. Send appropriate data back to server
         game.make_move(player_move, 'X')
-        game.get_board()
-        emit('update_board', {
-            'board': game.get_board()
-        ***REMOVED***
+        if game.check_winner('X'):
+            #Send win message, log the win to the database
+            emit('winner', 'PLAYER WINS')
+        elif game.check_winner('O'):
+            emit('winner', 'CPU WINS')
+        else:
+            game.computer_move()
+            game.get_board()
+            emit('update_board', {
+                'board': game.get_board()
+            ***REMOVED***
     else:
-        emit('not_your_turn')
+        emit('error', {'bad_request': '400'***REMOVED***
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
