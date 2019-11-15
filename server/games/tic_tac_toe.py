@@ -31,7 +31,6 @@ class Game:
 
     def check_winner(self, letter):
         # Given a board and a player's letter, this function returns True if that player has won.
-        # We use board instead of board and letter instead of letter so we don't have to type as much.
         board = self.board
         return (
             (board[6] == letter and board[7] == letter and board[8] == letter) or 

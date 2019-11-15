@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 from flask_socketio import SocketIO, join_room, emit, send
+from twilio.twiml.voice_response import VoiceResponse, Gather
+from twilio.rest import Client
 from games import tic_tac_toe
 
-# initialize Flask
 app = Flask(__name__)
 socketio = SocketIO(app)
 game_lobbies = {***REMOVED*** # dict to track active rooms
@@ -12,10 +13,9 @@ def index():
     #Index html debug page
     return render_template('index.html')
 
-@app.route('/call')
-def inbound_call():
-    #Handle inbound call and gather dialpad input
-    return ''
+@socketio.on('connect')
+def connect():
+    print('connected!')
 
 @socketio.on('create')
 def on_create(data):
@@ -23,7 +23,7 @@ def on_create(data):
     game = tic_tac_toe.Game(
         player=""
     )
-    room_id = game.game_id
+    room_id = '123'
     join_room(room_id)
     game_lobbies[room_id] = game
     emit('join_room', {'room': room_id***REMOVED***
@@ -39,9 +39,8 @@ def on_join(data):
     else:
         emit('error', {'error': 'Unable to join room. Room does not exist.'***REMOVED***
 
-@socketio.on('make_move')
+# @socketio.on('make_move')
 def make_move(data):
-    print(data)
     room = data['room_id']
     game = game_lobbies[room]
     if room in game_lobbies: #If game exists
@@ -50,17 +49,83 @@ def make_move(data):
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
             #Send win message, log the win to the database
-            emit('winner', 'PLAYER WINS')
+            socketio.emit('winner', 'PLAYER WINS')
         elif game.check_winner('O'):
-            emit('winner', 'CPU WINS')
+            socketio.emit('winner', 'CPU WINS')
         else:
             game.computer_move()
             game.get_board()
-            emit('update_board', {
+            socketio.emit('update_board', {
                 'board': game.get_board()
             ***REMOVED***
     else:
         emit('error', {'bad_request': '400'***REMOVED***
+
+
+@app.route("/start", methods=['GET', 'POST'])
+def voice():
+    """Respond to incoming phone calls with a menu of options"""
+    # Start our TwiML response
+    resp = VoiceResponse()
+    
+    # Start our <Gather> verb
+    gather = Gather(num_digits=1, action='/gather')
+    gather.say('Welcome to tic-tac-telephone.')
+    resp.append(gather)
+    # If the user doesn't select an option, redirect them into a loop
+    resp.redirect('/start')
+
+    return str(resp)
+
+
+@app.route('/gather', methods=['GET', 'POST'])
+def gather():
+    """Processes results from the <Gather> prompt in /voice"""
+    # Start our TwiML response
+    resp = VoiceResponse()
+
+    # If Twilio's request to our app included already gathered digits,
+    # process them
+    if 'Digits' in request.values:
+        # Get which digit the caller chose
+        choice = request.values['Digits']
+
+        # <Say> a different message depending on the caller's choice
+        if choice == '1':
+            make_move({'room_id': '123', 'player_move': 1***REMOVED***
+            resp.say('You chose 1')
+        elif choice == '2':
+            make_move({'room_id': '123', 'player_move': 2***REMOVED***
+            resp.say('You chose 2')
+        elif choice == '3':
+            make_move({'room_id': '123', 'player_move': 3***REMOVED***
+            resp.say('You chose 3')
+        elif choice == '4':
+            make_move({'room_id': '123', 'player_move': 4***REMOVED***
+            resp.say('You chose 4')
+        elif choice == '5':
+            make_move({'room_id': '123', 'player_move': 5***REMOVED***
+            resp.say('You chose 5')
+        elif choice == '6':
+            make_move({'room_id': '123', 'player_move': 5***REMOVED***
+            resp.say('You chose 6')
+        elif choice == '7':
+            make_move({'room_id': '123', 'player_move': 7***REMOVED***
+            resp.say('You chose 7')
+        elif choice == '8':
+            make_move({'room_id': '123', 'player_move': 8***REMOVED***
+            resp.say('You chose 8')
+        elif choice == '9':
+            make_move({'room_id': '123', 'player_move': 9***REMOVED***
+            resp.say('You chose 9')
+        else:
+            # If the caller didn't choose 1 or 2, apologize and ask them again
+            resp.say("Sorry, I don't understand that choice.")
+
+    # If the user didn't choose 1 or 2 (or anything), send them back to /voice
+    resp.redirect('/start')
+
+    return str(resp)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
