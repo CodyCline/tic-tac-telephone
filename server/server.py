@@ -13,10 +13,6 @@ def index():
     #Index html debug page
     return render_template('index.html')
 
-@socketio.on('connect')
-def connect():
-    print('connected!')
-
 @socketio.on('create')
 def on_create(data):
     #Create lobby
@@ -124,7 +120,6 @@ def gather():
 
     # If the user didn't choose 1 or 2 (or anything), send them back to /voice
     resp.redirect('/start')
-
     return str(resp)
 
 if __name__ == '__main__':
