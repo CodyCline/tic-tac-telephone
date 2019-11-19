@@ -14,7 +14,8 @@
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.3",
-    "vue-socket.io": "^3.0.7"
+    "vue-socket.io": "^3.0.7",
+    "vuex": "^3.1.2"
   ***REMOVED***,
   "devDependencies": {
     "@types/jest": "^24.0.11",
