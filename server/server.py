@@ -18,16 +18,16 @@ def index():
 @socketio.on('create')
 def on_create(data):
     #Create lobby
-    print("Received data", data)
     game = tic_tac_toe.Game(
         player=""
     )
     room_id = '123'
     join_room(room_id)
     game_lobbies[room_id] = game
-    emit('join_room', {'room': room_id***REMOVED***
+    emit('game_created', {'room': room_id***REMOVED***
 
 
+#This will likely be used only for re-entering lost room
 @socketio.on('join')
 def on_join(data):
     #Join the game lobby after creation if it exists.
@@ -44,7 +44,7 @@ def make_move(data):
     game = game_lobbies[room]
     if room in game_lobbies: #If game exists
         player_move = int(data['player_move'])-1
-        #Make player move, computer follows, check for winner. Send appropriate data back to server
+        #Make player move, computer follows, check for winner. Send appropriate data back to client
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
             #Send win message, log the win to the database

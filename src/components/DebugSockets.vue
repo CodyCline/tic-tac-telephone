@@ -1,9 +1,14 @@
 ***REMOVED***
-  <div>
-    <p v-if="isConnected">We're connected to the server!</p>
-    <p>Message from server: "{{socketMessage***REMOVED******REMOVED***"</p>
-    <button @click="pingServer()">Ping Server</button>
-  </div>
+	<div>
+		<p v-if="isConnected">We're connected to the server!</p>
+		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
+		<button @click="pingServer()">Ping Server</button>
+		<ul id="example-1">
+			<li v-bind:key="i" v-for="i in testData">
+				{{i***REMOVED******REMOVED***
+			</li>
+		</ul>
+***REMOVED***
 ***REMOVED***
 
 <script>
@@ -12,15 +17,12 @@ export default {
 	data() {
 		return {
 			isConnected: false,
-			socketMessage: ''
+			testData: [],
+			room: '',
+			testKey: 1,
 		***REMOVED***
 	***REMOVED***,
 
-	mounted() {
-        this.sockets.subscribe('MESSAGE', (data) => {
-			console.log("data")
-		***REMOVED***;
-***REMOVED***
 
 	sockets: {
 		connect() {
@@ -35,8 +37,15 @@ export default {
 		***REMOVED***,
 
 		// Fired when the server sends something on the "messageChannel" channel.
-		join_room(data) {
-			console.log("SOmething happend", data)
+		game_created(data) {
+			console.log("Something happend", data)
+			this.room = data.room
+		***REMOVED***,
+
+		async update_board(data) {
+			const boardData = JSON.parse(data.board);
+			this.testData = boardData;
+			console.log("UPDATED BOARD", boardData);
 		***REMOVED***
 	***REMOVED***,
 

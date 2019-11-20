@@ -1,4 +1,4 @@
-import random, string
+import random, string, json
 
 class Game:
     def __init__(self, player):
@@ -10,7 +10,7 @@ class Game:
         self.playing=False
 
     def get_board(self):
-        return self.board
+        return json.dumps(self.board)
 
     def make_move(self, move, letter):
         self.board[move] = letter

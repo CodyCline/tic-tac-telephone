@@ -1,6 +1,6 @@
 ***REMOVED***
 	<div class="gameSquare">
-		<span class="gameLetter gameX" v-if="used === true">X</span>
+		<span class="gameLetter gameX" v-if="letterX">X</span>
 		<span class="gameLetter gameO" v-else>O</span>
 ***REMOVED***
 ***REMOVED***
@@ -12,7 +12,7 @@
 ***REMOVED***
 ***REMOVED***
 		used: Boolean,
-		letter: Boolean,
+		letterX: Boolean,
 	***REMOVED***
 ***REMOVED***
 export default class TicTacSquare extends Vue {
