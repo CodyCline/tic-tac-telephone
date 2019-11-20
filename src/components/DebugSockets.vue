@@ -1,32 +1,50 @@
 ***REMOVED***
-	<div>
-		<input type="text" v-model="message"/>
-		<button @click="emitEvent">emit</button>
-		<div>{{response***REMOVED******REMOVED***</div>
-***REMOVED***
+  <div>
+    <p v-if="isConnected">We're connected to the server!</p>
+    <p>Message from server: "{{socketMessage***REMOVED******REMOVED***"</p>
+    <button @click="pingServer()">Ping Server</button>
+  </div>
 ***REMOVED***
 
 <script>
-***REMOVED***
-***REMOVED***
-		response:String,
-***REMOVED***
-    name: 'debug-sockets'
-***REMOVED***
-export default class DebugSockets extends Vue {
-	data () {
+export default {
+
+	data() {
 		return {
-			message: '',
-			response: 'Server has not yet replied.'
+			isConnected: false,
+			socketMessage: ''
+		***REMOVED***
+	***REMOVED***,
+
+	mounted() {
+        this.sockets.subscribe('MESSAGE', (data) => {
+			console.log("data")
 		***REMOVED***;
-	***REMOVED***;
-	emitEvent () {
-		this.$socket.emit('hello_world', this.message)
-	***REMOVED***;
-	created () {
-		this.$options.sockets.hello_world = (data) => {
-			this.response = data;
-		***REMOVED***;
-	***REMOVED***;
+***REMOVED***
+
+	sockets: {
+		connect() {
+			// Fired when the socket connects.
+			this.isConnected = true;
+		***REMOVED***,
+
+
+
+		disconnect() {
+			this.isConnected = false;
+		***REMOVED***,
+
+		// Fired when the server sends something on the "messageChannel" channel.
+		join_room(data) {
+			console.log("SOmething happend", data)
+		***REMOVED***
+	***REMOVED***,
+
+	methods: {
+		pingServer() {
+			console.log("SENDING");
+			this.$socket.emit('create', 'PING!')
+		***REMOVED***
+	***REMOVED***
 ***REMOVED***
 ***REMOVED***

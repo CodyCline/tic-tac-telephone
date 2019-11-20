@@ -1,13 +1,11 @@
 ***REMOVED***
-  <div id="app">
-    <router-view></router-view>
-  </div>
+	<div id="app">
+		<router-view></router-view>
+***REMOVED***
 ***REMOVED***
 
 <script lang="ts">
-import { Component, Vue ***REMOVED*** from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { Vue ***REMOVED*** from 'vue-property-decorator';
 export default class App extends Vue {***REMOVED***
 ***REMOVED***
 

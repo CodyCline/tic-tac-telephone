@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, join_room, emit, send
+from flask_cors import CORS
 from twilio.twiml.voice_response import VoiceResponse, Gather
 from twilio.rest import Client
 from games import tic_tac_toe
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 game_lobbies = {***REMOVED*** # dict to track active rooms
 
 @app.route('/')
@@ -13,9 +14,11 @@ def index():
     #Index html debug page
     return render_template('index.html')
 
+
 @socketio.on('create')
 def on_create(data):
     #Create lobby
+    print("Received data", data)
     game = tic_tac_toe.Game(
         player=""
     )

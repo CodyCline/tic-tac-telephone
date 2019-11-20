@@ -1,13 +1,16 @@
 ***REMOVED***
-  <div class="home">
-  </div>
+	<div class="home">
+		<DebugSockets/>
+***REMOVED***
 ***REMOVED***
 
 <script>
+import DebugSockets from '@/components/DebugSockets';
 
 export default {
-  name: 'home',
-  components: {
-  ***REMOVED***,
+	name: 'home',
+	components: {
+		DebugSockets,
+	***REMOVED***,
 ***REMOVED***;
 ***REMOVED***
