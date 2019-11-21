@@ -1,16 +1,16 @@
 ***REMOVED***
 	<div class="home">
-		<DebugSockets/>
+		<StartForm/>
 ***REMOVED***
 ***REMOVED***
 
 <script>
-import DebugSockets from '@/components/DebugSockets';
+import StartForm from '@/components/StartForm';
 
 export default {
 	name: 'home',
 	components: {
-		DebugSockets,
+		StartForm,
 	***REMOVED***,
 ***REMOVED***;
 ***REMOVED***

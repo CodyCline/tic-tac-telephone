@@ -4,8 +4,8 @@
 		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
 		<button @click="pingServer()">Ping Server</button>
 		<ul id="example-1">
-			<li v-bind:key="i" v-for="i in testData">
-				{{i***REMOVED******REMOVED***
+			<li v-bind:key="item" v-for="item in testData">
+				{{item***REMOVED******REMOVED***
 			</li>
 		</ul>
 ***REMOVED***

@@ -43,7 +43,7 @@ def make_move(data):
     room = data['room_id']
     game = game_lobbies[room]
     if room in game_lobbies: #If game exists
-        player_move = int(data['player_move'])-1
+        player_move = int(data['player_move'])
         #Make player move, computer follows, check for winner. Send appropriate data back to client
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
@@ -77,6 +77,11 @@ def voice():
     return str(resp)
 
 
+#Verify phone number before initiating game
+@app.route('/verify', methods=['GET', 'POST'])
+def verify():
+    pass
+
 @app.route('/gather', methods=['GET', 'POST'])
 def gather():
     """Processes results from the <Gather> prompt in /voice"""
@@ -91,31 +96,31 @@ def gather():
 
         # <Say> a different message depending on the caller's choice
         if choice == '1':
-            make_move({'room_id': '123', 'player_move': 1***REMOVED***
+            make_move({'room_id': '123', 'player_move': 0***REMOVED***
             resp.say('You chose 1')
         elif choice == '2':
-            make_move({'room_id': '123', 'player_move': 2***REMOVED***
+            make_move({'room_id': '123', 'player_move': 1***REMOVED***
             resp.say('You chose 2')
         elif choice == '3':
-            make_move({'room_id': '123', 'player_move': 3***REMOVED***
+            make_move({'room_id': '123', 'player_move': 2***REMOVED***
             resp.say('You chose 3')
         elif choice == '4':
-            make_move({'room_id': '123', 'player_move': 4***REMOVED***
+            make_move({'room_id': '123', 'player_move': 3***REMOVED***
             resp.say('You chose 4')
         elif choice == '5':
-            make_move({'room_id': '123', 'player_move': 5***REMOVED***
+            make_move({'room_id': '123', 'player_move': 4***REMOVED***
             resp.say('You chose 5')
         elif choice == '6':
             make_move({'room_id': '123', 'player_move': 5***REMOVED***
             resp.say('You chose 6')
         elif choice == '7':
-            make_move({'room_id': '123', 'player_move': 7***REMOVED***
+            make_move({'room_id': '123', 'player_move': 6***REMOVED***
             resp.say('You chose 7')
         elif choice == '8':
-            make_move({'room_id': '123', 'player_move': 8***REMOVED***
+            make_move({'room_id': '123', 'player_move': 7***REMOVED***
             resp.say('You chose 8')
         elif choice == '9':
-            make_move({'room_id': '123', 'player_move': 9***REMOVED***
+            make_move({'room_id': '123', 'player_move': 8***REMOVED***
             resp.say('You chose 9')
         else:
             # If the caller didn't choose 1 or 2, apologize and ask them again
