@@ -12,7 +12,7 @@ const routes = [
 		component: Home,
 	***REMOVED***,
 	{
-		path: '/game/:roomId',
+		path: '/play?g=:roomId',
 		name: 'game',
 		component: Game,
 	***REMOVED***,

@@ -1,9 +1,11 @@
+//Todo request game board data and display it or display error
 ***REMOVED***
 	<div>
 		<div style="display: flex; flex-direction:row;align-items:center;">
 			<avatar/>
 			<avatar/>
 	***REMOVED***
+		<!-- TODO: Display error based on  -->
 		<div class="gameBoard">
 			<TicTacSquare v-bind:input="item" v-for="item in testData" v-bind:key="item"></TicTacSquare>
 	***REMOVED***
@@ -25,6 +27,14 @@ export default {
 			room: "",
 			testKey: 1,
 		***REMOVED***
+	***REMOVED***,
+	mounted: {
+		loadGame() {
+			this.$socket.emit('get_game')
+		***REMOVED***
+	***REMOVED***,
+	computed: {
+		
 	***REMOVED***,
 
 	sockets: {

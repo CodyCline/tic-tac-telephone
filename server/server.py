@@ -33,7 +33,7 @@ def on_create():
 @socketio.on('join')
 def on_join(data):
     #Join the game lobby after creation if it exists.
-    room = data['room_id']
+    room = data['roomId']
     if room in game_lobbies:
         join_room(room)
         send(game_lobbies[room], room=room)
@@ -50,19 +50,19 @@ def make_move(data):
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
             #Send win message, log the win to the database
-            socketio.emit('update_board', {
+            socketio.emit('updateBoard', {
                 'board': game.get_board()
             ***REMOVED***
             socketio.emit('winner', 'PLAYER WINS')
         elif game.check_winner('O'):
-            socketio.emit('update_board', {
+            socketio.emit('updateBoard', {
                 'board': game.get_board()
             ***REMOVED***
             socketio.emit('winner', 'CPU WINS')
         else:
             game.computer_move()
             game.get_board()
-            socketio.emit('update_board', {
+            socketio.emit('updateBoard', {
                 'board': game.get_board()
             ***REMOVED***
     else:

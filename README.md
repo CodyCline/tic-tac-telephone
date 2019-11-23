@@ -1,34 +1,23 @@
-# tic-tac-telephone
+# Tic Tac Telephone
 
 ## Project setup
+#### Back End
+Create Virtual Environment On your machine
+```
+pip install -r requirements.txt
+python server.py
+```
+#### Front End
 ```
 yarn install
+yarn serve
 ```
+#### Docker Setup
+TODO
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Naming & Styling
+* Snake Case is used on the backend (e.g. `my_var`) 
+* Camel Case is used on the front end (e.g. `myVar`)
+* Tabs used front and back.
