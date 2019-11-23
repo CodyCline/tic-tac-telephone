@@ -1,13 +1,15 @@
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, join_room, emit, send
 from flask_cors import CORS
-from twilio.twiml.voice_response import VoiceResponse, Gather
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
+from twilio.twiml.voice_response import VoiceResponse, Gather
 from games import tic_tac_toe
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 game_lobbies = {***REMOVED*** # dict to track active rooms
+# client = Client()
 
 @app.route('/')
 def index():
@@ -16,12 +18,12 @@ def index():
 
 
 @socketio.on('create')
-def on_create(data):
+def on_create():
     #Create lobby
     game = tic_tac_toe.Game(
         player=""
     )
-    room_id = '123'
+    room_id = game.generate_room_id()
     join_room(room_id)
     game_lobbies[room_id] = game
     emit('game_created', {'room': room_id***REMOVED***
@@ -48,8 +50,14 @@ def make_move(data):
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
             #Send win message, log the win to the database
+            socketio.emit('update_board', {
+                'board': game.get_board()
+            ***REMOVED***
             socketio.emit('winner', 'PLAYER WINS')
         elif game.check_winner('O'):
+            socketio.emit('update_board', {
+                'board': game.get_board()
+            ***REMOVED***
             socketio.emit('winner', 'CPU WINS')
         else:
             game.computer_move()
@@ -79,8 +87,18 @@ def voice():
 
 #Verify phone number before initiating game
 @app.route('/verify', methods=['GET', 'POST'])
-def verify():
-    pass
+def verify(data):
+    try:
+        #Return true if number is not a voip or business type
+        response = client.lookups.phone_numbers(data.phoneNumber).fetch()
+        if(response):
+            return ({"status": "verified"***REMOVED***
+    #Return false if doesn't exist
+    except TwilioRestException as e:
+        if e.code == 20404:
+            return False
+        else:
+            raise e
 
 @app.route('/gather', methods=['GET', 'POST'])
 def gather():

@@ -6,17 +6,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		isConnected: false,
-		count: 0,
+		errors: false,
+		gameId: "",
+		nickname: "",
+		gameData: [],
 	***REMOVED***,
 	getters: {
-		doubleup(state) {
-			return state.count * 2;
-		***REMOVED***,
+
 	***REMOVED***,
 	mutations: {
-		
-	***REMOVED***,
-	actions: {
 		
 	***REMOVED***,
 ***REMOVED***;

@@ -6,16 +6,21 @@ import Game from '../views/Game.vue';
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home,
-  ***REMOVED***,
-  {
-    path: '/game',
-    name: 'game',
-    component: Game,
-  ***REMOVED***,
+	{
+		path: '/',
+		name: 'home',
+		component: Home,
+	***REMOVED***,
+	{
+		path: '/game/:roomId',
+		name: 'game',
+		component: Game,
+	***REMOVED***,
+	{
+		path: '/game',
+		name: 'room',
+		component: Game,
+	***REMOVED***,
 ];
 
 const router = new VueRouter({

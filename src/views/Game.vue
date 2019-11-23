@@ -17,14 +17,12 @@
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
 import Avatar from '@/components/Avatar';
-const arr = " " * 9
-
 export default {
 	data() {
 		return {
 			isConnected: false,
-			testData: [" "," "," "," "," "," "," "," "," ",],
-			room: '',
+			testData: [" "," "," "," "," "," "," "," "," "],
+			room: "",
 			testKey: 1,
 		***REMOVED***
 	***REMOVED***,
