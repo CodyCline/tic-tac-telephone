@@ -1,12 +1,21 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, abort, jsonify, render_template
 from flask_socketio import SocketIO, join_room, emit, send
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 from twilio.twiml.voice_response import VoiceResponse, Gather
 from games import tic_tac_toe
 
+
+config = {
+    'ORIGINS': [
+        'http://localhost:8080',  # Vue Frontend
+        'http://127.0.0.1:8080',  # Vue Frontend
+    ],
+***REMOVED***
+
 app = Flask(__name__)
+CORS(app, resources={ r'/*': {'origins': config['ORIGINS']***REMOVED******REMOVED***
 socketio = SocketIO(app, cors_allowed_origins="*")
 game_lobbies = {***REMOVED*** # dict to track active rooms
 # client = Client()
@@ -40,7 +49,7 @@ def on_join(data):
     else:
         emit('error', {'error': 'Unable to join room. Room does not exist.'***REMOVED***
 
-# @socketio.on('make_move')
+
 def make_move(data):
     room = data['room_id']
     game = game_lobbies[room]
@@ -49,7 +58,7 @@ def make_move(data):
         #Make player move, computer follows, check for winner. Send appropriate data back to client
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
-            #Send win message, log the win to the database
+            #Send win message. Todo log the win to the database
             socketio.emit('updateBoard', {
                 'board': game.get_board()
             ***REMOVED***
@@ -84,13 +93,25 @@ def voice():
 
     return str(resp)
 
+@app.route('/game/<string:game_id>', methods=['GET', 'POST'])
+@cross_origin()
+def get_game(game_id):
+    print(game_id)
+    if game_id in game_lobbies: #If game exists
+        game = game_lobbies[game_id]
+        return jsonify({"gameData": game.get_board()***REMOVED***
+    else:
+        abort(404)
+    
+
+
 
 #Verify phone number before initiating game
 @app.route('/verify', methods=['GET', 'POST'])
 def verify(data):
     try:
         #Return true if number is not a voip or business type
-        response = client.lookups.phone_numbers(data.phoneNumber).fetch()
+        response = True
         if(response):
             return ({"status": "verified"***REMOVED***
     #Return false if doesn't exist

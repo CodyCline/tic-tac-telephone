@@ -7,11 +7,10 @@
 	***REMOVED***
 		<!-- TODO: Display error based on  -->
 		<div class="gameBoard">
-			<TicTacSquare v-bind:input="item" v-for="item in testData" v-bind:key="item"></TicTacSquare>
+			<TicTacSquare v-bind:input="item" v-for="(item, index) in testData" v-bind:key="index"></TicTacSquare>
 	***REMOVED***
 		<p v-if="isConnected">We're connected to the server!</p>
 		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
-		<button @click="pingServer()">Ping Server</button>
 ***REMOVED***
 ***REMOVED***
 
@@ -23,19 +22,14 @@ export default {
 	data() {
 		return {
 			isConnected: false,
-			testData: [" "," "," "," "," "," "," "," "," "],
+			testData: [],
 			room: "",
-			testKey: 1,
 		***REMOVED***
 	***REMOVED***,
-	mounted: {
-		loadGame() {
-			this.$socket.emit('get_game')
-		***REMOVED***
+	mounted () {
+		this.getRoom()
 	***REMOVED***,
-	computed: {
-		
-	***REMOVED***,
+
 
 	sockets: {
 		connect() {
@@ -61,9 +55,19 @@ export default {
 	***REMOVED***,
 
 	methods: {
-		pingServer() {
-			console.log("SENDING");
-			this.$socket.emit('create', 'room')
+		async getRoom() {
+			try {
+				const req = await fetch(`http://localhost:5000/game/${this.$route.params.roomId***REMOVED***`, {
+					method: 'GET',
+					headers: {
+						contentType: 'application/json',
+					***REMOVED***,
+				***REMOVED***;
+				const data = await req.json();
+				this.testData = JSON.parse(data.gameData);
+			***REMOVED*** catch (error) {
+				console.log('UH OH', error);
+			***REMOVED***
 		***REMOVED***
 	***REMOVED***,
 
