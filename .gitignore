@@ -26,6 +26,7 @@ yarn-error.log*
 .flaskenv
 *.pyc
 *.pyo
+*.cfg
 env/
 env*
 dist/

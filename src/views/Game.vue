@@ -10,7 +10,12 @@
 			<TicTacSquare v-bind:input="item" v-for="(item, index) in testData" v-bind:key="index"></TicTacSquare>
 	***REMOVED***
 		<p v-if="isConnected">We're connected to the server!</p>
+		<button @click="startGame">Start Game</button>
 		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
+		<footer class="footer">
+			<span>Footer</span>
+		</footer>
+		
 ***REMOVED***
 ***REMOVED***
 
@@ -23,6 +28,7 @@ export default {
 		return {
 			isConnected: false,
 			testData: [],
+			buttonText: "Start Game",
 			room: "",
 		***REMOVED***
 	***REMOVED***,
@@ -41,16 +47,20 @@ export default {
 			this.isConnected = false;
 		***REMOVED***,
 
+		call_connected (data) {
+			this.buttonText = "Connected"
+		***REMOVED***,
+
+		
+
 		// Fired when the server sends something on the "messageChannel" channel.
 		game_created(data) {
-			console.log("Something happend", data)
 			this.room = data.room
 		***REMOVED***,
 
 		update_board(data) {
 			const boardData = JSON.parse(data.board);
 			this.testData = boardData;
-			console.log("UPDATED BOARD", boardData);
 		***REMOVED***,
 	***REMOVED***,
 
@@ -66,8 +76,12 @@ export default {
 				const data = await req.json();
 				this.testData = JSON.parse(data.gameData);
 			***REMOVED*** catch (error) {
-				console.log('UH OH', error);
+				//If something happens server-side or the room can't be found redirect home
+				return this.$router.push('/')
 			***REMOVED***
+		***REMOVED***,
+		startGame(phone) {
+			this.$socket.emit('start_call', {"phone": process.env.testPhone***REMOVED***
 		***REMOVED***
 	***REMOVED***,
 
@@ -90,5 +104,11 @@ export default {
 	border-radius: 10px;
 	display: grid;
 	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+***REMOVED***
+.footer {
+	width: 100%;
+	background: #FFD500;
+	color: #0f0f0f;
+
 ***REMOVED***
 ***REMOVED***

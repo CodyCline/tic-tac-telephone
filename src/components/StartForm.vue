@@ -53,6 +53,7 @@ export default {
 ***REMOVED***
     sockets: {
 		connect() {
+            
 		***REMOVED***,
 
 		// Fired when the server sends something on the "messageChannel" channel.

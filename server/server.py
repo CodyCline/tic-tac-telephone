@@ -2,23 +2,18 @@ from flask import Flask, request, abort, jsonify, render_template
 from flask_socketio import SocketIO, join_room, emit, send
 from flask_cors import CORS, cross_origin
 from twilio.rest import Client
-from twilio.base.exceptions import TwilioRestException
 from twilio.twiml.voice_response import VoiceResponse, Gather
+from twilio.base.exceptions import TwilioRestException
+from config import server_config
 from games import tic_tac_toe
 
-
-config = {
-    'ORIGINS': [
-        'http://localhost:8080',  # Vue Frontend
-        'http://127.0.0.1:8080',  # Vue Frontend
-    ],
-***REMOVED***
-
+env = server_config.DevelopmentSettings()
+game_lobbies = {***REMOVED*** 
 app = Flask(__name__)
-CORS(app, resources={ r'/*': {'origins': config['ORIGINS']***REMOVED******REMOVED***
 socketio = SocketIO(app, cors_allowed_origins="*")
-game_lobbies = {***REMOVED*** # dict to track active rooms
-# client = Client()
+CORS(app, resources={ r'/*': {'origins': env.CORS_CONFIG***REMOVED******REMOVED***
+client = Client(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN)
+
 
 @app.route('/')
 def index():
@@ -49,6 +44,13 @@ def on_join(data):
     else:
         emit('error', {'error': 'Unable to join room. Room does not exist.'***REMOVED***
 
+
+@socketio.on('start_game')
+def game(data):
+    client.calls.create(
+        to=data.phone,
+        from_=env.TWILIO_SERVER_PHONE
+    )
 
 def make_move(data):
     room = data['room_id']
@@ -170,4 +172,4 @@ def gather():
     return str(resp)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=env.DEBUG)
