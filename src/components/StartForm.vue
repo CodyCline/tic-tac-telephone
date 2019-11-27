@@ -37,6 +37,7 @@
 
 <script>
 ***REMOVED***
+import { mapMutations ***REMOVED*** from 'vuex';
 
 const e164Format = (input) => {
     //Properly format phone num before checking if valid
@@ -53,8 +54,8 @@ export default {
 ***REMOVED***
     sockets: {
 		connect() {
-            
-		***REMOVED***,
+
+    ***REMOVED***
 
 		// Fired when the server sends something on the "messageChannel" channel.
 		game_created(data) {
@@ -64,10 +65,13 @@ export default {
 		***REMOVED***,
 	***REMOVED***,
     methods:{
+        ...mapMutations(['setNickname', 'setPhone']),
         checkForm () {
             this.checking = true;
             //Todo: api call to verify phone number is valid
             if(this.name && this.phone) {
+                this.setNickname(this.name);
+                this.setPhone(this.phone);
                 this.$socket.emit('create');
             ***REMOVED***
             this.errors = [];

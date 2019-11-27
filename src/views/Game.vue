@@ -12,6 +12,7 @@
 		<p v-if="isConnected">We're connected to the server!</p>
 		<button @click="startGame">Start Game</button>
 		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
+		<p>Phone {{phoneNum***REMOVED******REMOVED***</p>
 		<footer class="footer">
 			<span>Footer</span>
 		</footer>
@@ -23,7 +24,11 @@
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
 import Avatar from '@/components/Avatar';
+import { mapState ***REMOVED*** from 'vuex';
 export default {
+	computed: {
+		...mapState(['phoneNum']),
+	***REMOVED***,
 	data() {
 		return {
 			isConnected: false,
@@ -47,6 +52,7 @@ export default {
 			this.isConnected = false;
 		***REMOVED***,
 
+
 		call_connected (data) {
 			this.buttonText = "Connected"
 		***REMOVED***,
@@ -59,6 +65,7 @@ export default {
 		***REMOVED***,
 
 		update_board(data) {
+			console.log('udates')
 			const boardData = JSON.parse(data.board);
 			this.testData = boardData;
 		***REMOVED***,
@@ -81,7 +88,7 @@ export default {
 			***REMOVED***
 		***REMOVED***,
 		startGame(phone) {
-			this.$socket.emit('start_call', {"phone": process.env.testPhone***REMOVED***
+			this.$socket.emit('start_call', {"phone": this.$store.state.phoneNum, "roomid": this.$route.params.roomId***REMOVED***
 		***REMOVED***
 	***REMOVED***,
 
