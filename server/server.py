@@ -18,6 +18,7 @@ client = Client(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN)
 @socketio.on('create')
 def on_create():
     #Create lobby
+    print('creating')
     game = tic_tac_toe.Game(
         player=''
     )
@@ -25,7 +26,7 @@ def on_create():
     # room_id = '123' #Debug
     join_room(room_id)
     game_lobbies[room_id] = game
-    emit('game_created', {'room': room_id***REMOVED***
+    emit('GAME_CREATED', {'room': room_id***REMOVED***
 
 #This will likely be used only for re-entering lost room
 @socketio.on('join')
@@ -55,17 +56,20 @@ def make_move(data):
         game.make_move(player_move, 'X')
         if game.check_winner('X'):
             #Send win message. Todo log the win to the database
-            socketio.emit('update_board', {
+            socketio.emit('UPDATE_BOARD', {
                 'board': game.get_board()
             ***REMOVED***
             socketio.emit('winner', 'PLAYER')
         else:
             game.computer_move()
             if game.check_winner('O'):
-                socketio.emit('update_board', {
+                socketio.emit('UPDATE_BOARD', {
                     'board': game.get_board()
                 ***REMOVED***
                 socketio.emit('winner', 'CPU')
+            socketio.emit('UPDATE_BOARD', {
+                'board': game.get_board()
+            ***REMOVED***
     else:
         emit('error', {'bad_request': '400'***REMOVED***
 
@@ -81,9 +85,9 @@ def get_game(game_id):
 
 
 
-#Ensure the phone number is real and not a business or voip phone
+#Ensure the phone number is real 
 @app.route('/lookup', methods=['GET', 'POST'])
-def lookup(data):
+def lookup(phone):
     try:
         #Return true if number is not a voip or business type
         response = True
@@ -119,10 +123,8 @@ def call(data):
 def collect():
     '''Respond to incoming phone calls with a menu of options'''
     resp = VoiceResponse()
-    print('ROOMID', request.args.get('roomid'))
     gather = Gather(num_digits=1, action='/play?roomid={***REMOVED***'.format(request.args.get('roomid')))
     gather.say('Welcome to tic tac telephone. Use the keypad digits of 1-9 to play')
-    socketio.emit('get_cookie')
     resp.append(gather)
     # If the user doesn't select an option, redirect them into a loop
     resp.redirect('/collect')

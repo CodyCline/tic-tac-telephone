@@ -7,9 +7,9 @@
 	***REMOVED***
 		<!-- TODO: Display error based on  -->
 		<div class="gameBoard">
-			<TicTacSquare v-bind:input="item" v-for="(item, index) in testData" v-bind:key="index"></TicTacSquare>
+			<TicTacSquare v-bind:input="item" v-for="(item, index) in gameData" v-bind:key="index"></TicTacSquare>
 	***REMOVED***
-		<p v-if="isConnected">We're connected to the server!</p>
+		<p >We're connected to the server! {{isConnected***REMOVED******REMOVED***</p>
 		<button @click="startGame">Start Game</button>
 		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
 		<p>Phone {{phoneNum***REMOVED******REMOVED***</p>
@@ -23,55 +23,24 @@
 <script>
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
+import { mapMutations ***REMOVED*** from 'vuex';
 import Avatar from '@/components/Avatar';
 import { mapState ***REMOVED*** from 'vuex';
 export default {
 	computed: {
-		...mapState(['phoneNum']),
+		...mapState(['phoneNum', 'room', 'gameData', 'isConnected']),
 	***REMOVED***,
 	data() {
 		return {
-			isConnected: false,
-			testData: [],
 			buttonText: "Start Game",
-			room: "",
 		***REMOVED***
 	***REMOVED***,
 	mounted () {
 		this.getRoom()
 	***REMOVED***,
 
-
-	sockets: {
-		connect() {
-			// Fired when the socket connects.
-			this.isConnected = true;
-		***REMOVED***,
-
-		disconnect() {
-			this.isConnected = false;
-		***REMOVED***,
-
-
-		call_connected (data) {
-			this.buttonText = "Connected"
-		***REMOVED***,
-
-		
-
-		// Fired when the server sends something on the "messageChannel" channel.
-		game_created(data) {
-			this.room = data.room
-		***REMOVED***,
-
-		update_board(data) {
-			console.log('udates')
-			const boardData = JSON.parse(data.board);
-			this.testData = boardData;
-		***REMOVED***,
-	***REMOVED***,
-
 	methods: {
+		...mapMutations(['setInitialGame', 'startGame']),
 		async getRoom() {
 			try {
 				const req = await fetch(`http://localhost:5000/game/${this.$route.params.roomId***REMOVED***`, {
@@ -81,14 +50,14 @@ export default {
 					***REMOVED***,
 				***REMOVED***;
 				const data = await req.json();
-				this.testData = JSON.parse(data.gameData);
+				this.setInitialGame(JSON.parse(data.gameData))
 			***REMOVED*** catch (error) {
 				//If something happens server-side or the room can't be found redirect home
 				return this.$router.push('/')
 			***REMOVED***
 		***REMOVED***,
 		startGame(phone) {
-			this.$socket.emit('start_call', {"phone": this.$store.state.phoneNum, "roomid": this.$route.params.roomId***REMOVED***
+			this.$socket.emit('start_call', {"phone": this.phoneNum, "roomid": this.$route.params.roomId***REMOVED***
 		***REMOVED***
 	***REMOVED***,
 

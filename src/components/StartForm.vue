@@ -37,7 +37,7 @@
 
 <script>
 ***REMOVED***
-import { mapMutations ***REMOVED*** from 'vuex';
+import { mapMutations, mapState ***REMOVED*** from 'vuex';
 
 const e164Format = (input) => {
     //Properly format phone num before checking if valid
@@ -52,18 +52,6 @@ export default {
             checking: false,
         ***REMOVED***
 ***REMOVED***
-    sockets: {
-		connect() {
-
-    ***REMOVED***
-
-		// Fired when the server sends something on the "messageChannel" channel.
-		game_created(data) {
-			console.log("Something happend", data)
-            this.room = data.room; // This needs to go into vuex
-            this.$router.push({name : 'game', params: { roomId: data.room ***REMOVED******REMOVED***;
-		***REMOVED***,
-	***REMOVED***,
     methods:{
         ...mapMutations(['setNickname', 'setPhone']),
         checkForm () {

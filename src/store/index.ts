@@ -1,11 +1,13 @@
 ***REMOVED***;
 import Vuex from 'vuex';
+import router from '../router';
 
 Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		isConnected: false,
 		errors: false,
+		authenticated: false, //2FA Auth
 		room: "",
 		nickname: "",
 		phoneNum: "",
@@ -28,15 +30,20 @@ export default new Vuex.Store({
 		***REMOVED***,
 		SOCKET_GAME_CREATED(state, data) {
 			state.room = data.room;
+            router.push({name : 'game', params: { roomId: data.room ***REMOVED******REMOVED***;
 		***REMOVED***,
-		SOCKET_UPDATE_BOARD(state, data) {
-			state.gameData = data;
+		SOCKET_UPDATE_BOARD(state, gameData) {
+			const formatted = JSON.parse(gameData.board)
+			state.gameData = formatted;
 		***REMOVED***,
 		setPhone (state, phone) {
 			state.phoneNum = phone;
 		***REMOVED***,
 		setNickname(state, username) {
 			state.nickname = username;
+		***REMOVED***,
+		setInitialGame(state, arr) {
+			state.gameData = arr;
 		***REMOVED***,
 		setWinner (state, victor) {
 			state.winner = victor;
