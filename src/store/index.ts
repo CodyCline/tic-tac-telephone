@@ -16,9 +16,9 @@ export default new Vuex.Store({
 		winner: null,
 	***REMOVED***,
 	mutations: {
-		SOCKET_CONNECT(state) {
-			state.isConnected = true;
-		***REMOVED***,
+		SOCKET_CONNECT: (state,  status) => {
+            state.isConnected = true;
+    ***REMOVED***
 		SOCKET_DISCONNECT(state) {
 			state.isConnected = false;
 		***REMOVED***,

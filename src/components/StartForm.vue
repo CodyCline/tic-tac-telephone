@@ -31,6 +31,7 @@
                 <span v-if="checking">Loading ...</span>
                 <span v-else>Create!</span>
             </button>
+            <span>{{isConnected***REMOVED******REMOVED***</span>
         <!-- </form> -->
     </div>
 ***REMOVED***
@@ -44,6 +45,9 @@ const e164Format = (input) => {
 ***REMOVED***
 export default {
     name: 'start-form',
+    computed: {
+        ...mapState(['isConnected'])
+***REMOVED***
     data () {
         return {
             errors: [],

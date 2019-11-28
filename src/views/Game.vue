@@ -28,7 +28,7 @@ import Avatar from '@/components/Avatar';
 import { mapState ***REMOVED*** from 'vuex';
 export default {
 	computed: {
-		...mapState(['phoneNum', 'room', 'gameData', 'isConnected']),
+		...mapState(['phoneNum', 'room', 'gameData', 'isConnected', 'dialButtonText']),
 	***REMOVED***,
 	data() {
 		return {
@@ -43,7 +43,7 @@ export default {
 		...mapMutations(['setInitialGame', 'startGame']),
 		async getRoom() {
 			try {
-				const req = await fetch(`http://localhost:5000/game/${this.$route.params.roomId***REMOVED***`, {
+				const req = await fetch(`http://localhost:5000/api/game/${this.$route.params.roomId***REMOVED***`, {
 					method: 'GET',
 					headers: {
 						contentType: 'application/json',
