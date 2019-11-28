@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+
 # local env files
 .env.local
 .env.*.local
@@ -46,4 +47,5 @@ docs/_build/
 htmlcov/
 .coverage
 .coverage.*
-*,cover
+*,coverAvatar.vue
+Avatar.vue
