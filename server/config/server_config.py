@@ -12,14 +12,14 @@ DEV_ALLOWED_ROUTES = {
         parser.get('cors_test', 'test_domain'),
         parser.get('cors_test', 'test_ipaddr'),
     ],
-***REMOVED***
+}
 
 PROD_ALLOWED_ROUTES = {
     'ORIGINS': [
         parser.get('cors_prod', 'prod_domain'),
         parser.get('cors_prod', 'prod_ipaddr'),
     ],
-***REMOVED***
+}
 
 #Main settings others are used to override
 class ServerSettings(object):

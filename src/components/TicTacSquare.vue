@@ -1,25 +1,25 @@
-***REMOVED***
+<template>
 	<div class="gameSquare">
 		<span class="gameLetter gameX" v-if="input == 'X'">X</span>
 		<span class="gameLetter gameO" v-else-if="input == 'O'">O</span>
-***REMOVED***
-***REMOVED***
+	</div>
+</template>
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
+<script lang='ts'>
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-***REMOVED***
-***REMOVED***
+@Component({
+	props: {
 		input: String,
-	***REMOVED***
-***REMOVED***
+	}
+})
 export default class TicTacSquare extends Vue {
 	
-***REMOVED***
-***REMOVED***
+}
+</script>
 
-***REMOVED***
+<style scoped>
 	.gameSquare {
 		background: #332167;
 		border-radius: 15px;
@@ -30,14 +30,14 @@ export default class TicTacSquare extends Vue {
 	  	text-align: center;
 		font-family: Helvetica;
   		font-weight: bold;
-	***REMOVED***
+	}
 	.gameLetter {
 		font-size: 6rem;
-	***REMOVED***
+	}
 	.gameO {
 		color: #FFD032;
-	***REMOVED***
+	}
 	.gameX {
 		color:#EB1751;
-	***REMOVED***
-***REMOVED***
+	}
+</style>

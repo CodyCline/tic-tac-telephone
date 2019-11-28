@@ -1,4 +1,4 @@
-***REMOVED***
+<template>
     <vue-flex-box
         justify-content="center"
         wrap
@@ -9,7 +9,7 @@
                 <p v-if="this.errors.length">
                     <b>Please correct the following error(s):</b>
                     <ul>
-                        <li v-bind:key="error.index" v-for="error in errors">{{ error ***REMOVED******REMOVED***</li>
+                        <li v-bind:key="error.index" v-for="error in errors">{{ error }}</li>
                     </ul>
                 </p>
                 <p>
@@ -35,32 +35,32 @@
                     <span v-if="checking">Loading ...</span>
                     <span v-else>Create!</span>
                 </button>
-                <span>{{isConnected***REMOVED******REMOVED***</span>
+                <span>{{isConnected}}</span>
             </div>
         </vue-flex-item>
     </vue-flex-box>
-***REMOVED***
+</template>
 
 <script>
-***REMOVED***
-import { mapMutations, mapState ***REMOVED*** from 'vuex';
+import Vue from 'vue'
+import { mapMutations, mapState } from 'vuex';
 
 const e164Format = (input) => {
     //Properly format phone num before checking if valid
-***REMOVED***
+}
 export default {
     name: 'start-form',
     computed: {
         ...mapState(['isConnected'])
-***REMOVED***
+    },
     data () {
         return {
             errors: [],
             name: "",
             phone: "",
             checking: false,
-        ***REMOVED***
-***REMOVED***
+        }
+    },
     methods:{
         ...mapMutations(['setNickname', 'setPhone']),
         checkForm () {
@@ -70,25 +70,25 @@ export default {
                 this.setNickname(this.name);
                 this.setPhone(this.phone);
                 this.$socket.emit('create');
-            ***REMOVED***
+            }
             this.errors = [];
             if(!this.name) {
                 this.errors.push("Name required");
-            ***REMOVED***
+            }
             if(!this.phone) {
                 this.errors.push("Phone required")
-            ***REMOVED***
+            }
             
-    ***REMOVED***
-***REMOVED***
-***REMOVED***;
-***REMOVED***
+        },
+    },
+};
+</script>
 
-***REMOVED***
+<style scoped>
 .gameForm {
     height: 300px; 
     width: 600px;
     background: #5E42B6;
     border-radius: 5px;
-***REMOVED***
-***REMOVED***
+}
+</style>

@@ -1,4 +1,4 @@
 declare module '*.vue' {
-  ***REMOVED***;
+  import Vue from 'vue';
   export default Vue;
-***REMOVED***
+}
