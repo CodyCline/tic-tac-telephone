@@ -47,5 +47,9 @@ docs/_build/
 htmlcov/
 .coverage
 .coverage.*
+<<<<<<< HEAD
 *,coverAvatar.vue
 Avatar.vue
+=======
+*,coverAvatar.vue
+>>>>>>> 5f18a1e1974ccacf6533818b933d28533efefe6e

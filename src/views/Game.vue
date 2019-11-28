@@ -2,8 +2,6 @@
 ***REMOVED***
 	<div>
 		<div style="display: flex; flex-direction:row;align-items:center;">
-			<avatar/>
-			<avatar/>
 	***REMOVED***
 		<!-- TODO: Display error based on  -->
 		<div class="gameBoard">
@@ -24,7 +22,10 @@
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
 import { mapMutations ***REMOVED*** from 'vuex';
+<<<<<<< HEAD
 import Avatar from '@/components/UI/Avatar';
+=======
+>>>>>>> 5f18a1e1974ccacf6533818b933d28533efefe6e
 import { mapState ***REMOVED*** from 'vuex';
 export default {
 	computed: {
@@ -64,7 +65,6 @@ export default {
 	components: {
 		TicTacBoard,
 		TicTacSquare,
-		Avatar,
 	***REMOVED***,
   	name: 'game',
 ***REMOVED***;
