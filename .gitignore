@@ -49,3 +49,4 @@ htmlcov/
 .coverage.*
 *,coverAvatar.vue
 Avatar.vue
+Avatar.vue
