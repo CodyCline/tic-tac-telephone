@@ -20,14 +20,14 @@
       "@/*": [
         "src/*"
       ]
-***REMOVED***
+    },
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
     ]
-  ***REMOVED***,
+  },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -38,4 +38,4 @@
   "exclude": [
     "node_modules"
   ]
-***REMOVED***
+}

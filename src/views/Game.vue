@@ -1,74 +1,74 @@
 //Todo request game board data and display it or display error
-***REMOVED***
+<template>
 	<div>
 		<div style="display: flex; flex-direction:row;align-items:center;">
-	***REMOVED***
+		</div>
 		<!-- TODO: Display error based on  -->
 		<div class="gameBoard">
 			<TicTacSquare v-bind:input="item" v-for="(item, index) in gameData" v-bind:key="index"></TicTacSquare>
-	***REMOVED***
-		<p >We're connected to the server! {{isConnected***REMOVED******REMOVED***</p>
+		</div>
+		<p >We're connected to the server! {{isConnected}}</p>
 		<button @click="startGame">Start Game</button>
-		<p>Room num: "{{room***REMOVED******REMOVED***"</p>
-		<p>Phone {{phoneNum***REMOVED******REMOVED***</p>
+		<p>Room num: "{{room}}"</p>
+		<p>Phone {{phoneNum}}</p>
 		<footer class="footer">
 			<span>Footer</span>
 		</footer>
 		
-***REMOVED***
-***REMOVED***
+	</div>
+</template>
 
 <script>
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
-import { mapMutations ***REMOVED*** from 'vuex';
+import { mapMutations } from 'vuex';
 import Avatar from '@/components/UI/Avatar';
-import { mapState ***REMOVED*** from 'vuex';
+import { mapState } from 'vuex';
 export default {
 	computed: {
 		...mapState(['phoneNum', 'room', 'gameData', 'isConnected', 'dialButtonText']),
-	***REMOVED***,
+	},
 	data() {
 		return {
 			buttonText: "Start Game",
-		***REMOVED***
-	***REMOVED***,
+		}
+	},
 	mounted () {
 		this.getRoom()
-	***REMOVED***,
+	},
 
 	methods: {
 		...mapMutations(['setInitialGame', 'startGame']),
 		async getRoom() {
 			try {
-				const req = await fetch(`http://localhost:5000/api/game/${this.$route.params.roomId***REMOVED***`, {
+				const req = await fetch(`http://localhost:5000/api/game/${this.$route.params.roomId}`, {
 					method: 'GET',
 					headers: {
 						contentType: 'application/json',
-					***REMOVED***,
-				***REMOVED***;
+					},
+				});
 				const data = await req.json();
 				this.setInitialGame(JSON.parse(data.gameData))
-			***REMOVED*** catch (error) {
+			} catch (error) {
 				//If something happens server-side or the room can't be found redirect home
 				return this.$router.push('/')
-			***REMOVED***
-		***REMOVED***,
+			}
+		},
 		startGame(phone) {
-			this.$socket.emit('start_call', {"phone": this.phoneNum, "roomid": this.$route.params.roomId***REMOVED***
-		***REMOVED***
-	***REMOVED***,
+			this.$socket.emit('start_call', {"phone": this.phoneNum, "roomid": this.$route.params.roomId})
+		}
+	},
 
 	components: {
 		TicTacBoard,
 		TicTacSquare,
-	***REMOVED***,
+	},
   	name: 'game',
-***REMOVED***;
-***REMOVED***
+};
+</script>
 
 
-***REMOVED***
+<style scoped>
 .gameBoard {
 	width: 400px;
 	height: 400px;
@@ -77,11 +77,11 @@ export default {
 	border-radius: 10px;
 	display: grid;
 	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-***REMOVED***
+}
 .footer {
 	width: 100%;
 	background: #FFD500;
 	color: #0f0f0f;
 
-***REMOVED***
-***REMOVED***
+}
+</style>

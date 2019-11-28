@@ -1,32 +1,32 @@
-***REMOVED***
+<template>
 	<div class="gameBoard">
-***REMOVED***
-***REMOVED***
+	</div>
+</template>
 
-***REMOVED***
-***REMOVED***;
-***REMOVED***;
+<script lang='ts'>
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+@Component({
+	props: {
+		children: Node,
+    },
+    name: 'tic-tac-board'
+})
 export default class TicTacBoard extends Vue {
 	
-***REMOVED***
-***REMOVED***
+}
+</script>
 
-***REMOVED***
+<style scoped>
 	.gameBoard {
         width: 400px;
 	    height: 400px;
-***REMOVED***
+	    margin: 0 auto;
         background-color: #664AC0;
-***REMOVED***
+        border-radius: 10px;
 	
 	    display: grid;
 	    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    ***REMOVED***
-***REMOVED***
+    }
+</style>

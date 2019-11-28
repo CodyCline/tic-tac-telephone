@@ -1,8 +1,8 @@
-***REMOVED***
+<template>
 	<div class="home">
 		<StartForm/>
-***REMOVED***
-***REMOVED***
+	</div>
+</template>
 
 <script>
 import StartForm from '@/components/StartForm';
@@ -11,6 +11,6 @@ export default {
 	name: 'home',
 	components: {
 		StartForm,
-	***REMOVED***,
-***REMOVED***;
-***REMOVED***
+	},
+};
+</script>

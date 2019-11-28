@@ -8,10 +8,10 @@ from config import server_config
 from games import tic_tac_toe
 
 env = server_config.DevelopmentSettings()
-game_lobbies = {***REMOVED*** 
+game_lobbies = {} 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
-CORS(app, resources={ r'/*': {'origins': env.CORS_CONFIG***REMOVED******REMOVED***
+CORS(app, resources={ r'/*': {'origins': env.CORS_CONFIG}})
 client = Client(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN)
 
 @socketio.on('create')
@@ -23,7 +23,7 @@ def on_create():
     room_id = game.generate_room_id()
     join_room(room_id)
     game_lobbies[room_id] = game
-    emit('GAME_CREATED', {'room': room_id***REMOVED***
+    emit('GAME_CREATED', {'room': room_id})
 
 #This will likely be used only for re-entering lost room
 
@@ -32,7 +32,7 @@ def on_create():
 def get_game(game_id):
     if game_exists(game_id):
         game = game_lobbies[game_id]
-        return jsonify({'gameData': game.get_board()***REMOVED***
+        return jsonify({'gameData': game.get_board()})
     else:
         abort(404)
     
@@ -46,11 +46,11 @@ def lookup(phone):
         #Return true if number is not a voip or business type
         response = True
         if(response):
-            return jsonify({'status': 'verified'***REMOVED***
+            return jsonify({'status': 'verified'})
     #Return false if doesn't exist
     except TwilioRestException as e:
         if e.code == 20404:
-            return jsonify({'status': 'badNumber'***REMOVED***
+            return jsonify({'status': 'badNumber'})
         else:
             raise e
 @app.route('/api/verify')
@@ -63,7 +63,7 @@ def verify():
 def call(data):
     if data['roomid'] in game_lobbies: #If game exists
         client.calls.create(
-            url='http://cae3a60f.ngrok.io/hooks/collect?roomid={***REMOVED***'.format(data['roomid']),
+            url='http://cae3a60f.ngrok.io/hooks/collect?roomid={}'.format(data['roomid']),
             to=data['phone'],
             from_=env.TWILIO_SERVER_PHONE
         )        
@@ -89,7 +89,7 @@ def make_move(data, sid):
                 #Send win message. Todo log the win to the database
                 socketio.emit('UPDATE_BOARD', {
                     'board': game.get_board()
-                ***REMOVED***
+                })
                 socketio.emit('winner', 'PLAYER')
                 client.calls(sid).update(twiml='<Response><Say>Thanks for playing! Congradulations! You won!</Say><Hangup/></Response>')
             else:
@@ -97,25 +97,25 @@ def make_move(data, sid):
                 if game.check_winner('O'):
                     socketio.emit('UPDATE_BOARD', {
                         'board': game.get_board()
-                    ***REMOVED***
+                    })
                     socketio.emit('winner', 'CPU')
                     client.calls(sid).update(twiml='<Response><Say>Thanks for playing! You lost, better luck next time!</Say><Hangup/></Response>')
                 socketio.emit('UPDATE_BOARD', {
                     'board': game.get_board()
-                ***REMOVED***
+                })
         else:
-            client.calls(sid).update(twiml='<Response><Say>That spot is taken! Try another one</Say><Redirect method="POST">http://cae3a60f.ngrok.io/hooks/play?roomid={***REMOVED***</Redirect></Response>'.format(room))
+            client.calls(sid).update(twiml='<Response><Say>That spot is taken! Try another one</Say><Redirect method="POST">http://cae3a60f.ngrok.io/hooks/play?roomid={}</Redirect></Response>'.format(room))
 
             
     else:
-        emit('error', {'bad_request': '400'***REMOVED***
+        emit('error', {'bad_request': '400'})
 
 
 @app.route('/hooks/collect', methods=['GET', 'POST'])
 def collect():
     '''Respond to incoming phone calls with a menu of options'''
     resp = VoiceResponse()
-    gather = Gather(num_digits=1, action='/hooks/play?roomid={***REMOVED***'.format(request.args.get('roomid')))
+    gather = Gather(num_digits=1, action='/hooks/play?roomid={}'.format(request.args.get('roomid')))
     gather.say('Welcome to tic tac telephone. Use the keypad digits of 1-9 to play')
     resp.append(gather)
     # If the user doesn't select an option, redirect them into a loop
@@ -133,44 +133,44 @@ def play():
         game = game_lobbies[room_id]
         # <Say> a different message depending on the caller's choice
         if choice == '1':
-            make_move({'room_id': room_id, 'player_move': 0***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 0}, call_sid)
             resp.say('You chose 1')
         elif choice == '2':
-            make_move({'room_id': room_id, 'player_move': 1***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 1}, call_sid)
             resp.say('You chose 2')
         elif choice == '3':
-            make_move({'room_id': room_id, 'player_move': 2***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 2}, call_sid)
             resp.say('You chose 3')
         elif choice == '4':
-            make_move({'room_id': room_id, 'player_move': 3***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 3}, call_sid)
             resp.say('You chose 4')
         elif choice == '5':
-            make_move({'room_id': room_id, 'player_move': 4***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 4}, call_sid)
             resp.say('You chose 5')
         elif choice == '6':
-            make_move({'room_id': room_id, 'player_move': 5***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 5}, call_sid)
             resp.say('You chose 6')
         elif choice == '7':
-            make_move({'room_id': room_id, 'player_move': 6***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 6}, call_sid)
             resp.say('You chose 7')
         elif choice == '8':
-            make_move({'room_id': room_id, 'player_move': 7***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 7}, call_sid)
             resp.say('You chose 8')
         elif choice == '9':
-            make_move({'room_id': room_id, 'player_move': 8***REMOVED***, call_sid)
+            make_move({'room_id': room_id, 'player_move': 8}, call_sid)
             resp.say('You chose 9')
         else:
             # If the caller didn't choose 1 or 2, apologize and ask them again
             resp.say('Sorry, I don\'t understand that choice.')
 
     #If no choice is made within 
-    resp.redirect('/hooks/again?roomid={***REMOVED***'.format(request.args.get('roomid')))
+    resp.redirect('/hooks/again?roomid={}'.format(request.args.get('roomid')))
     return str(resp)
 
 @app.route('/hooks/again', methods=['GET', 'POST'])
 def turn():
     resp = VoiceResponse()
-    gather = Gather(num_digits=1, action='/hooks/play?roomid={***REMOVED***'.format(request.args.get('roomid')))
+    gather = Gather(num_digits=1, action='/hooks/play?roomid={}'.format(request.args.get('roomid')))
     gather.say('Its your turn. Select a digit please')
     resp.append(gather)
     resp.redirect('/hooks/again')
