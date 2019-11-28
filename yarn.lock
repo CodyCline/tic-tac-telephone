@@ -928,6 +928,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@seregpie/vueflex@^20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@seregpie/vueflex/-/vueflex-20.0.0.tgz#f7eaf5f4bde92b680c3d13a52864372f7145edc9"
+  integrity sha512-g86Q9tGAjREyqoAdk7fHPajnXYLatY/WokbuwzoGWzXmEwEcH457n8FS6Mzs5LHbeoj+Jw4LZ/v3YWGZZhnDkA==
+
 "@soda/friendly-errors-webpack-plugin@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@soda/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.7.1.tgz#706f64bcb4a8b9642b48ae3ace444c70334d615d"

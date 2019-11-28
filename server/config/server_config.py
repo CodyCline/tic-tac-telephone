@@ -6,16 +6,18 @@ secrets = os.path.join(current_folder, 'keys.cfg')
 parser = ConfigParser()
 parser.read(secrets)
 
+#Allows only the vuejs frontend to access the server
 DEV_ALLOWED_ROUTES = {
     'ORIGINS': [
-        'http://localhost:8080',  # Vue Frontend
-        'http://127.0.0.1:8080',  # Vue Frontend
+        parser.get('cors_test', 'test_domain'),
+        parser.get('cors_test', 'test_ipaddr'),
     ],
 ***REMOVED***
 
 PROD_ALLOWED_ROUTES = {
     'ORIGINS': [
-        str(parser.get('file', 'front_end_domain')),  # Vue Frontend App
+        parser.get('cors_prod', 'prod_domain'),
+        parser.get('cors_prod', 'prod_ipaddr'),
     ],
 ***REMOVED***
 
@@ -25,10 +27,10 @@ class ServerSettings(object):
         pass
     DEBUG = False
     TESTING = False
-    CORS_CONFIG=DEV_ALLOWED_ROUTES
-    TWILIO_ACCOUNT_SID = parser.get('file', 'account_sid')
-    TWILIO_AUTH_TOKEN = parser.get('file', 'auth_token')
-    TWILIO_SERVER_PHONE = parser.get('file', 'server_phone_num')
+    CORS_CONFIG=PROD_ALLOWED_ROUTES
+    TWILIO_ACCOUNT_SID = parser.get('twilio', 'account_sid')
+    TWILIO_AUTH_TOKEN = parser.get('twilio', 'auth_token')
+    TWILIO_SERVER_PHONE = parser.get('twilio', 'server_phone_num')
 
 class DevelopmentSettings(ServerSettings):
     DEBUG = True

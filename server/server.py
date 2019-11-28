@@ -21,21 +21,11 @@ def on_create():
         player=''
     )
     room_id = game.generate_room_id()
-    # room_id = '123' #Debug
     join_room(room_id)
     game_lobbies[room_id] = game
     emit('GAME_CREATED', {'room': room_id***REMOVED***
 
 #This will likely be used only for re-entering lost room
-@socketio.on('join')
-def on_join(data):
-    #Join the game lobby after creation if it exists.
-    room = data['roomId']
-    if room in game_lobbies:
-        join_room(room)
-        send(game_lobbies[room], room=room)
-    else:
-        emit('error', {'error': 'Unable to join room. Room does not exist.'***REMOVED***
 
 @app.route('/api/game/<string:game_id>', methods=['GET', 'POST'])
 @cross_origin()
@@ -76,8 +66,7 @@ def call(data):
             url='http://cae3a60f.ngrok.io/hooks/collect?roomid={***REMOVED***'.format(data['roomid']),
             to=data['phone'],
             from_=env.TWILIO_SERVER_PHONE
-        )
-        
+        )        
     else:
         abort(400)
 def game_exists(room):
@@ -145,6 +134,7 @@ def play():
         # <Say> a different message depending on the caller's choice
         if choice == '1':
             make_move({'room_id': room_id, 'player_move': 0***REMOVED***, call_sid)
+            resp.say('You chose 1')
         elif choice == '2':
             make_move({'room_id': room_id, 'player_move': 1***REMOVED***, call_sid)
             resp.say('You chose 2')
@@ -173,7 +163,7 @@ def play():
             # If the caller didn't choose 1 or 2, apologize and ask them again
             resp.say('Sorry, I don\'t understand that choice.')
 
-    # If the user didn't choose 1 or 2 (or anything), send them back to /voice
+    #If no choice is made within 
     resp.redirect('/hooks/again?roomid={***REMOVED***'.format(request.args.get('roomid')))
     return str(resp)
 

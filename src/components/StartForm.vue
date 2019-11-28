@@ -1,39 +1,44 @@
 ***REMOVED***
-    <div class="gameForm">
-        <h1>Welcome to Tic Tac Telephone!</h1>
-        <!-- <form @submit="checkForm()"> -->
-            <p v-if="this.errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-bind:key="error.index" v-for="error in errors">{{ error ***REMOVED******REMOVED***</li>
-                </ul>
-            </p>
-            <p>
-                <label for="name">Nickname</label>
-                <input
-                    id="name"
-                    v-model="name"
-                    type="text"
-                    name="name"
-                />
-            </p>
-            <p>
-                <label for="phone">Phone Number</label>
-                <input
-                    v-model="phone"
-                    type="number"
-                    name="phone"
-                    min="0"
-                />
-            </p>
+    <vue-flex-box
+        justify-content="center"
+        wrap
+    >
+        <vue-flex-item>
+            <div class="gameForm">
+                <h1>Welcome to Tic Tac Telephone!</h1>
+                <p v-if="this.errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-bind:key="error.index" v-for="error in errors">{{ error ***REMOVED******REMOVED***</li>
+                    </ul>
+                </p>
+                <p>
+                    <label for="name">Nickname</label>
+                    <input
+                        id="name"
+                        v-model="name"
+                        type="text"
+                        name="name"
+                    />
+                </p>
+                <p>
+                    <label for="phone">Phone Number</label>
+                    <input
+                        v-model="phone"
+                        type="number"
+                        name="phone"
+                        min="0"
+                    />
+                </p>
 
-            <button @click="checkForm()">
-                <span v-if="checking">Loading ...</span>
-                <span v-else>Create!</span>
-            </button>
-            <span>{{isConnected***REMOVED******REMOVED***</span>
-        <!-- </form> -->
-    </div>
+                <button @click="checkForm()">
+                    <span v-if="checking">Loading ...</span>
+                    <span v-else>Create!</span>
+                </button>
+                <span>{{isConnected***REMOVED******REMOVED***</span>
+            </div>
+        </vue-flex-item>
+    </vue-flex-box>
 ***REMOVED***
 
 <script>
@@ -82,7 +87,7 @@ export default {
 ***REMOVED***
 .gameForm {
     height: 300px; 
-    width: 400px;
+    width: 600px;
     background: #5E42B6;
     border-radius: 5px;
 ***REMOVED***

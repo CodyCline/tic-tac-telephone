@@ -24,7 +24,7 @@
 import TicTacBoard from '@/components/TicTacBoard';
 import TicTacSquare from '@/components/TicTacSquare';
 import { mapMutations ***REMOVED*** from 'vuex';
-import Avatar from '@/components/Avatar';
+import Avatar from '@/components/UI/Avatar';
 import { mapState ***REMOVED*** from 'vuex';
 export default {
 	computed: {
